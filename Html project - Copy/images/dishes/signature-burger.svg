@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
-  <rect width="400" height="300" fill="#f8f8f8"/>
-  <circle cx="200" cy="150" r="100" fill="#FF6B35" opacity="0.7"/>
-  <text x="200" y="155" font-family="Arial" font-size="18" text-anchor="middle" fill="#fff">Signature Burger</text>
-</svg>
