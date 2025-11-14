@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Locations - FreshBite</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        /* Additional Locations Page Styles */
+        .locations-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/locations/locations-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+            color: var(--white-color);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .locations-hero h1 {
+            color: var(--white-color);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .locations-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .location-search {
+            max-width: 600px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+        
+        .location-search input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .location-search button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+        
+        .location-search button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .featured-locations {
+            padding: 60px 0;
+        }
+        
+        .location-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .location-tab {
+            padding: 10px 25px;
+            border-radius: 30px;
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .location-tab.active {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border-color: var(--primary-color);
+        }
+        
+        .location-tab:hover {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border-color: var(--primary-color);
+        }
+        
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .location-card {
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-fast);
+        }
+        
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .location-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-fast);
+        }
+        
+        .location-card:hover .location-image img {
+            transform: scale(1.05);
+        }
+        
+        .location-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .location-badge.new {
+            background-color: var(--primary-color);
+        }
+        
+        .location-badge.popular {
+            background-color: var(--secondary-color);
+        }
+        
+        .location-info {
+            padding: 25px;
+        }
+        
+        .location-info h3 {
+            margin-bottom: 10px;
+        }
+        
+        .location-info p {
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+        
+        .location-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .location-rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .location-rating i {
+            color: var(--accent-color);
+            margin-right: 5px;
+        }
+        
+        .location-rating span {
+            font-weight: 600;
+        }
+        
+        .location-details {
+            margin-top: 20px;
+        }
+        
+        .location-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .location-detail i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .location-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .location-actions .btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .map-section {
+            padding: 60px 0;
+            background-color: var(--light-bg);
+        }
+        
+        .map-container {
+            height: 500px;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        .location-features {
+            padding: 60px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-fast);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 107, 53, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 30px;
+            color: var(--primary-color);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .feature-card p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .new-location {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/locations/coming-soon-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white-color);
+            text-align: center;
+        }
+        
+        .new-location h2 {
+            color: var(--white-color);
+            margin-bottom: 20px;
+        }
+        
+        .new-location p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: var(--border-radius-lg);
+            min-width: 100px;
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .notify-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+        
+        .notify-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+        }
+        
+        .notify-form button {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .notify-form button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        @media (max-width: 991.98px) {
+            .location-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .countdown {
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .notify-form {
+                flex-direction: column;
+            }
+            
+            .notify-form input {
+                border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+            }
+            
+            .notify-form button {
+                border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><span>Fresh</span>Bite</a>
+            </div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="locations.html" class="active">Locations</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+            <div class="header-buttons">
+                <a href="#" class="btn btn-outline">Order Online</a>
+                <a href="#" class="btn btn-primary">Book a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Locations Hero -->
+    <section class="locations-hero">
+        <div class="container">
+            <h1>Our <span class="highlight">Locations</span></h1>
+            <p>Find a FreshBite restaurant near you and experience our delicious food and warm hospitality</p>
+            <div class="location-search">
+                <input type="text" placeholder="Enter your zip code or city">
+                <button>Find Nearest</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Locations -->
+    <section class="featured-locations">
+        <div class="container">
+            <h2 class="text-center">Featured <span class="highlight">Locations</span></h2>
+            <p class="text-center">Discover our restaurants across the city</p>
+            
+            <div class="location-tabs">
+                <button class="location-tab active">All Locations</button>
+                <button class="location-tab">New York</button>
+                <button class="location-tab">Brooklyn</button>
+                <button class="location-tab">Queens</button>
+                <button class="location-tab">New Jersey</button>
+            </div>
+            
+            <div class="location-grid">
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="images/locations/downtown.jpg" alt="Karnal Location">
+                        <div class="location-badge popular">Popular</div>
+                    </div>
+                    <div class="location-info">
+                        <h3>Karnal</h3>
+                        <p>Our flagship restaurant in the heart of Karnal</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>123 Main Street, Karnal, Haryana, India</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4567</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>8:00 AM - 10:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="location-meta">
+                            <div class="location-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (520 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <a href="#" class="btn btn-outline">View Details</a>
+                            <a href="#" class="btn btn-primary">Book a Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="images/locations/uptown.jpg" alt="Delhi Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>Delhi</h3>
+                        <p>Our cozy restaurant in the heart of the capital</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>456 Connaught Place, Delhi, India</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 234-5678</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>9:00 AM - 9:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="location-meta">
+                            <div class="location-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6 (320 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <a href="#" class="btn btn-outline">View Details</a>
+                            <a href="#" class="btn btn-primary">Book a Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="images/locations/brooklyn.jpg" alt="Chandigarh Location">
+                        <div class="location-badge new">New</div>
+                    </div>
+                    <div class="location-info">
+                        <h3>Chandigarh</h3>
+                        <p>Our newest location with a modern twist</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>789 Sector 17, Chandigarh, India</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 345-6789</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>10:00 AM - 11:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="location-meta">
+                            <div class="location-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (120 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <a href="#" class="btn btn-outline">View Details</a>
+                            <a href="#" class="btn btn-primary">Book a Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="images/locations/queens.jpg" alt="Gurgaon Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>Gurgaon</h3>
+                        <p>Our family-friendly location in Gurgaon</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>321 Cyber City, Gurgaon, Haryana, India</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 456-7890</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>8:00 AM - 9:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="location-meta">
+                            <div class="location-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7 (290 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <a href="#" class="btn btn-outline">View Details</a>
+                            <a href="#" class="btn btn-primary">Book a Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="images/locations/jersey-city.jpg" alt="Jaipur Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>Jaipur</h3>
+                        <p>Our scenic restaurant with palace views</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>555 Pink City, Jaipur, Rajasthan, India</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 567-8901</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>11:00 AM - 10:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="location-meta">
+                            <div class="location-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (340 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <a href="#" class="btn btn-outline">View Details</a>
+                            <a href="#" class="btn btn-primary">Book a Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="images/locations/hoboken.jpg" alt="Amritsar Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>Amritsar</h3>
+                        <p>Our intimate bistro with a cultural heritage feel</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>222 Heritage Street, Amritsar, Punjab, India</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 678-9012</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>9:00 AM - 10:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="location-meta">
+                            <div class="location-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7 (260 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <a href="#" class="btn btn-outline">View Details</a>
+                            <a href="#" class="btn btn-primary">Book a Table</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="text-center">Find a <span class="highlight">Location</span> Near You</h2>
+            <p class="text-center">Explore our interactive map to find the closest FreshBite restaurant</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55073.51026389035!2d76.96873097910156!3d29.686919500000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e46cf85c85d3d%3A0x7f34ca30aeaf84e5!2sKarnal%2C%20Haryana%2C%20India!5e0!3m2!1sen!2sin!4v1627309375817!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Features -->
+    <section class="location-features">
+        <div class="container">
+            <h2 class="text-center">What to <span class="highlight">Expect</span></h2>
+            <p class="text-center">Every FreshBite location offers these amazing features</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Fresh Ingredients</h3>
+                    <p>We source the freshest local ingredients daily for our dishes</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>Free Wi-Fi</h3>
+                    <p>Stay connected with complimentary high-speed internet</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-parking"></i>
+                    </div>
+                    <h3>Parking Available</h3>
+                    <p>Convenient parking options at all our locations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wheelchair"></i>
+                    </div>
+                    <h3>Accessibility</h3>
+                    <p>All our restaurants are fully accessible</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coming Soon Location -->
+    <section class="new-location">
+        <div class="container">
+            <h2>Coming <span class="highlight">Soon</span></h2>
+            <p>We're excited to announce our newest location opening in the heart of Mumbai! Be the first to experience our newest restaurant.</p>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number">30</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">12</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">45</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number">22</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            
+            <p>Get notified when we open our doors!</p>
+            <form class="notify-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Notify Me</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Stay updated with our latest offers, new menu items, and exclusive promotions</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <a href="index.html"><span>Fresh</span>Bite</a>
+                    </div>
+                    <p>Serving delicious, nutritious meals made from locally-sourced ingredients since 2008.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Our Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="locations.html">Locations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Karnal, Haryana, India</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@freshbite.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Opening Hours</h4>
+                    <ul class="opening-hours">
+                        <li><span>Monday - Friday:</span> 8:00 AM - 10:00 PM</li>
+                        <li><span>Saturday - Sunday:</span> 9:00 AM - 11:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FreshBite. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Location Tab Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationTabs = document.querySelectorAll('.location-tab');
+            
+            locationTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    locationTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Here you would typically filter the locations
+                    // For now, we'll just show an alert
+                    alert(`Filter applied: ${this.textContent}`);
+                });
+            });
+            
+            // Countdown Timer Functionality
+            function updateCountdown() {
+                // This is just a placeholder for a real countdown
+                // In a real implementation, you would calculate the remaining time
+                // and update the countdown numbers accordingly
+                
+                // For demonstration purposes, we'll just decrement the seconds
+                const secondsElement = document.querySelector('.countdown-item:nth-child(4) .countdown-number');
+                let seconds = parseInt(secondsElement.textContent);
+                
+                seconds = seconds > 0 ? seconds - 1 : 59;
+                secondsElement.textContent = seconds < 10 ? `0${seconds}` : seconds;
+                
+                // If seconds reach 0, decrement minutes
+                if (seconds === 0) {
+                    const minutesElement = document.querySelector('.countdown-item:nth-child(3) .countdown-number');
+                    let minutes = parseInt(minutesElement.textContent);
+                    
+                    minutes = minutes > 0 ? minutes - 1 : 59;
+                    minutesElement.textContent = minutes < 10 ? `0${minutes}` : minutes;
+                    
+                    // If minutes reach 0, decrement hours
+                    if (minutes === 0) {
+                        const hoursElement = document.querySelector('.countdown-item:nth-child(2) .countdown-number');
+                        let hours = parseInt(hoursElement.textContent);
+                        
+                        hours = hours > 0 ? hours - 1 : 23;
+                        hoursElement.textContent = hours < 10 ? `0${hours}` : hours;
+                        
+                        // If hours reach 0, decrement days
+                        if (hours === 0) {
+                            const daysElement = document.querySelector('.countdown-item:nth-child(1) .countdown-number');
+                            let days = parseInt(daysElement.textContent);
+                            
+                            days = days > 0 ? days - 1 : 0;
+                            daysElement.textContent = days < 10 ? `0${days}` : days;
+                        }
+                    }
+                }
+            }
+            
+            // Update countdown every second
+            setInterval(updateCountdown, 1000);
+            
+            // Form submission handling
+            const notifyForm = document.querySelector('.notify-form');
+            if (notifyForm) {
+                notifyForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you! We will notify you when our new location opens.');
+                    notifyForm.reset();
+                });
+            }
+            
+            // Location search handling
+            const locationSearch = document.querySelector('.location-search');
+            if (locationSearch) {
+                locationSearch.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Searching for locations near you...');
+                });
+                
+                const searchButton = locationSearch.querySelector('button');
+                searchButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Searching for locations near you...');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

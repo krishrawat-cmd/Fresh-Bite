@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu - FreshBite</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        /* Additional Menu Page Styles */
+        .menu-section {
+            padding: 60px 0;
+        }
+        
+        .menu-section:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+        
+        .menu-category {
+            margin-bottom: 50px;
+        }
+        
+        .menu-category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .menu-category-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 107, 53, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+        
+        .menu-category-icon img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .menu-category-title h2 {
+            margin-bottom: 5px;
+        }
+        
+        .menu-category-title p {
+            color: var(--light-text);
+        }
+        
+        .menu-items-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .menu-item {
+            display: flex;
+            background-color: var(--white-color);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-fast);
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .menu-item-image {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .menu-item-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item-title h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .menu-item-price {
+            font-family: var(--heading-font);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .menu-item-description {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+        
+        .menu-item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu-item-tags {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .menu-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .menu-tag.vegetarian {
+            background-color: rgba(46, 196, 182, 0.1);
+            color: var(--secondary-color);
+        }
+        
+        .menu-tag.spicy {
+            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .menu-tag.gluten-free {
+            background-color: rgba(255, 188, 66, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .menu-item-action .btn {
+            padding: 5px 15px;
+            font-size: 0.8rem;
+        }
+        
+        .menu-filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: var(--white-color);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border-color: var(--primary-color);
+        }
+        
+        .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border-color: var(--primary-color);
+        }
+        
+        .menu-special {
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/menu/special-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            color: var(--white-color);
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .menu-special h2 {
+            color: var(--white-color);
+        }
+        
+        .special-items {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .special-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: var(--border-radius-lg);
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .special-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .special-item h3 {
+            color: var(--white-color);
+            margin-bottom: 10px;
+        }
+        
+        .special-item p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+        
+        .special-price {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .menu-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 991.98px) {
+            .menu-items-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .special-items {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .menu-item {
+                flex-direction: column;
+            }
+            
+            .menu-item-image {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><span>Fresh</span>Bite</a>
+            </div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html" class="active">Our Menu</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+            <div class="header-buttons">
+                <a href="#" class="btn btn-outline">Order Online</a>
+                <a href="#" class="btn btn-primary">Book a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <h1>Our <span class="highlight">Menu</span></h1>
+            <p>Discover our delicious offerings made with fresh, locally-sourced ingredients</p>
+        </div>
+    </section>
+
+    <!-- Menu Filters -->
+    <section class="menu-filters-section">
+        <div class="container">
+            <div class="menu-filters">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Breakfast</button>
+                <button class="filter-btn">Lunch</button>
+                <button class="filter-btn">Dinner</button>
+                <button class="filter-btn">Vegetarian</button>
+                <button class="filter-btn">Gluten-Free</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Burgers Section -->
+    <section id="burgers" class="menu-section">
+        <div class="container">
+            <div class="menu-category">
+                <div class="menu-category-header">
+                    <div class="menu-category-icon">
+                        <img src="images/icons/burger.svg" alt="Burgers">
+                    </div>
+                    <div class="menu-category-title">
+                        <h2>Signature <span class="highlight">Burgers</span></h2>
+                        <p>Premium chicken & vegetarian options</p>
+                    </div>
+                </div>
+                <div class="menu-items-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/classic-burger.jpg" alt="Classic Burger">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Classic Burger</h3>
+                                </div>
+                                <div class="menu-item-price">₹825</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Tender chicken patty, lettuce, tomato, red onion, pickles, and our signature sauce on a brioche bun.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag spicy">Popular</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/veggie-burger.jpg" alt="Veggie Burger">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Garden Veggie Burger</h3>
+                                </div>
+                                <div class="menu-item-price">₹750</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>House-made vegetable and quinoa patty, avocado, sprouts, tomato, and vegan aioli on a whole grain bun.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/signature-burger.jpg" alt="Signature Burger">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>FreshBite Signature</h3>
+                                </div>
+                                <div class="menu-item-price">₹975</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Premium chicken patty, aged cheddar, caramelized onions, bacon jam, arugula, and truffle aioli on a brioche bun.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag spicy">Bestseller</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/chicken-burger.jpg" alt="Chicken Burger">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Grilled Chicken Burger</h3>
+                                </div>
+                                <div class="menu-item-price">₹900</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Herb-marinated grilled chicken breast, avocado, lettuce, tomato, and honey mustard on a potato bun.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag gluten-free">Gluten-Free Option</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Salads Section -->
+    <section id="salads" class="menu-section">
+        <div class="container">
+            <div class="menu-category">
+                <div class="menu-category-header">
+                    <div class="menu-category-icon">
+                        <img src="images/icons/salad.svg" alt="Salads">
+                    </div>
+                    <div class="menu-category-title">
+                        <h2>Fresh <span class="highlight">Salads</span></h2>
+                        <p>Crisp, healthy & delicious</p>
+                    </div>
+                </div>
+                <div class="menu-items-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/avocado-salad.jpg" alt="Avocado Salad">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Avocado & Quinoa Bowl</h3>
+                                </div>
+                                <div class="menu-item-price">₹750</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Mixed greens, quinoa, avocado, cherry tomatoes, cucumber, red onion, and citrus vinaigrette.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                    <span class="menu-tag gluten-free">Gluten-Free</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/caesar-salad.jpg" alt="Caesar Salad">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Classic Caesar</h3>
+                                </div>
+                                <div class="menu-item-price">₹675</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Romaine lettuce, house-made croutons, shaved parmesan, and our creamy Caesar dressing.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag spicy">Popular</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/mediterranean-salad.jpg" alt="Mediterranean Salad">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Mediterranean Bowl</h3>
+                                </div>
+                                <div class="menu-item-price">₹825</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Mixed greens, feta cheese, olives, cucumber, cherry tomatoes, red onion, and lemon herb dressing.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                    <span class="menu-tag gluten-free">Gluten-Free</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/chicken-salad.jpg" alt="Grilled Chicken Salad">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Grilled Chicken & Kale</h3>
+                                </div>
+                                <div class="menu-item-price">₹900</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Kale, grilled chicken breast, apple slices, walnuts, dried cranberries, and honey mustard dressing.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag gluten-free">Gluten-Free</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Menu Items -->
+    <section class="menu-special">
+        <div class="container">
+            <h2>Chef's <span class="highlight">Specials</span></h2>
+            <p>Limited-time offerings crafted by our executive chef</p>
+            <div class="special-items">
+                <div class="special-item">
+                    <img src="images/menu/special-1.jpg" alt="Truffle Mushroom Burger">
+                    <h3>Truffle Mushroom Burger</h3>
+                    <p>Chicken patty topped with sautéed wild mushrooms, truffle aioli, and aged Swiss cheese.</p>
+                    <span class="special-price">₹1125</span>
+                    <a href="#" class="btn btn-primary">Order Now</a>
+                </div>
+                <div class="special-item">
+                    <img src="images/menu/special-2.jpg" alt="Mango Tango Salad">
+                    <h3>Mango Tango Salad</h3>
+                    <p>Fresh mango, avocado, jicama, and mixed greens with a spicy lime dressing.</p>
+                    <span class="special-price">₹975</span>
+                    <a href="#" class="btn btn-primary">Order Now</a>
+                </div>
+                <div class="special-item">
+                    <img src="images/menu/special-3.jpg" alt="Artisan Flatbread">
+                    <h3>Artisan Flatbread</h3>
+                    <p>Stone-baked flatbread with goat cheese, caramelized onions, and fig jam.</p>
+                    <span class="special-price">₹900</span>
+                    <a href="#" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pizzas Section -->
+    <section id="pizzas" class="menu-section">
+        <div class="container">
+            <div class="menu-category">
+                <div class="menu-category-header">
+                    <div class="menu-category-icon">
+                        <img src="images/icons/pizza.svg" alt="Pizzas">
+                    </div>
+                    <div class="menu-category-title">
+                        <h2>Artisan <span class="highlight">Pizzas</span></h2>
+                        <p>Stone-baked with fresh toppings</p>
+                    </div>
+                </div>
+                <div class="menu-items-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/margherita-pizza.jpg" alt="Margherita Pizza">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Classic Margherita</h3>
+                                </div>
+                                <div class="menu-item-price">₹1125</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>San Marzano tomato sauce, fresh mozzarella, basil, and extra virgin olive oil.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/veggie-pizza.jpg" alt="Veggie Supreme Pizza">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Veggie Supreme</h3>
+                                </div>
+                                <div class="menu-item-price">₹1200</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Tomato sauce, mozzarella, bell peppers, red onions, mushrooms, black olives, and fresh herbs.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/bbq-chicken-pizza.jpg" alt="BBQ Chicken Pizza">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>BBQ Chicken</h3>
+                                </div>
+                                <div class="menu-item-price">₹1275</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>BBQ sauce, mozzarella, grilled chicken, red onions, cilantro, and a drizzle of ranch.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag spicy">Popular</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/mushroom-pizza.jpg" alt="Wild Mushroom Pizza">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Wild Mushroom</h3>
+                                </div>
+                                <div class="menu-item-price">₹1350</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Garlic cream sauce, mozzarella, assorted wild mushrooms, caramelized onions, truffle oil, and thyme.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desserts Section -->
+    <section id="desserts" class="menu-section">
+        <div class="container">
+            <div class="menu-category">
+                <div class="menu-category-header">
+                    <div class="menu-category-icon">
+                        <img src="images/icons/dessert.svg" alt="Desserts">
+                    </div>
+                    <div class="menu-category-title">
+                        <h2>Sweet <span class="highlight">Desserts</span></h2>
+                        <p>Sweet treats to finish your meal</p>
+                    </div>
+                </div>
+                <div class="menu-items-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/chocolate-cake.jpg" alt="Chocolate Lava Cake">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Chocolate Lava Cake</h3>
+                                </div>
+                                <div class="menu-item-price">₹825</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Warm chocolate cake with a molten center, served with vanilla bean ice cream.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag spicy">Bestseller</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/cheesecake.jpg" alt="New York Cheesecake">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>New York Cheesecake</h3>
+                                </div>
+                                <div class="menu-item-price">₹750</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Creamy cheesecake with a graham cracker crust, topped with seasonal berry compote.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/apple-crumble.jpg" alt="Apple Crumble">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Warm Apple Crumble</h3>
+                                </div>
+                                <div class="menu-item-price">₹975</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Baked cinnamon apples with a crisp oat topping, served with caramel sauce and vanilla ice cream.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/tiramisu.jpg" alt="Tiramisu">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Classic Tiramisu</h3>
+                                </div>
+                                <div class="menu-item-price">₹900</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Layers of coffee-soaked ladyfingers and mascarpone cream, dusted with cocoa powder.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drinks Section -->
+    <section id="drinks" class="menu-section">
+        <div class="container">
+            <div class="menu-category">
+                <div class="menu-category-header">
+                    <div class="menu-category-icon">
+                        <img src="images/icons/drink.svg" alt="Drinks">
+                    </div>
+                    <div class="menu-category-title">
+                        <h2>Refreshing <span class="highlight">Beverages</span></h2>
+                        <p>Refreshing drinks & smoothies</p>
+                    </div>
+                </div>
+                <div class="menu-items-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/berry-smoothie.jpg" alt="Berry Blast Smoothie">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Berry Blast Smoothie</h3>
+                                </div>
+                                <div class="menu-item-price">₹1125</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Mixed berries, banana, Greek yogurt, and honey blended to perfection.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                    <span class="menu-tag gluten-free">Gluten-Free</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/green-smoothie.jpg" alt="Green Detox Smoothie">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Green Detox Smoothie</h3>
+                                </div>
+                                <div class="menu-item-price">₹975</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Spinach, kale, apple, cucumber, celery, ginger, and lemon for a refreshing boost.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                    <span class="menu-tag gluten-free">Gluten-Free</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/iced-coffee.jpg" alt="Cold Brew Coffee">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Cold Brew Coffee</h3>
+                                </div>
+                                <div class="menu-item-price">₹900</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Smooth, slow-steeped cold brew coffee served over ice with your choice of milk.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag spicy">Popular</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">
+                            <img src="images/menu/lemonade.jpg" alt="Fresh Lemonade">
+                        </div>
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <div class="menu-item-title">
+                                    <h3>Fresh Squeezed Lemonade</h3>
+                                </div>
+                                <div class="menu-item-price">₹1125</div>
+                            </div>
+                            <div class="menu-item-description">
+                                <p>Freshly squeezed lemons, cane sugar, and filtered water with mint garnish.</p>
+                            </div>
+                            <div class="menu-item-meta">
+                                <div class="menu-item-tags">
+                                    <span class="menu-tag vegetarian">Vegetarian</span>
+                                    <span class="menu-tag gluten-free">Gluten-Free</span>
+                                </div>
+                                <div class="menu-item-action">
+                                    <a href="#" class="btn btn-sm">Add to Order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu CTA -->
+    <section class="menu-cta">
+        <div class="container">
+            <h2>Ready to <span class="highlight">Order?</span></h2>
+            <p>Enjoy our delicious food at home or reserve a table at one of our locations</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Order Online</a>
+                <a href="#" class="btn btn-outline">Book a Table</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Stay updated with our latest offers, new menu items, and exclusive promotions</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <a href="index.html"><span>Fresh</span>Bite</a>
+                    </div>
+                    <p>Serving delicious, nutritious meals made from locally-sourced ingredients since 2008.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Our Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="locations.html">Locations</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Karnal, Haryana, India</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@freshbite.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Opening Hours</h4>
+                    <ul class="opening-hours">
+                        <li><span>Monday - Friday:</span> 8:00 AM - 10:00 PM</li>
+                        <li><span>Saturday - Sunday:</span> 9:00 AM - 11:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FreshBite. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // Menu Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Here you would typically filter the menu items
+                    // For now, we'll just show an alert
+                    alert(`Filter applied: ${this.textContent}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
